@@ -18,7 +18,7 @@ pipeline {
     }
     stage('Apply') {
       steps {
-        sh 'terraform apply -auto-approve -no-color
+        sh 'terraform apply -auto-approve -no-color'
       }
     }
     stage('Destroy') {
