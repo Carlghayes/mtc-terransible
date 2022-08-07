@@ -39,7 +39,7 @@ pipeline {
     stage('Inventory') {
       steps {
         sh '''printf \\
-          "\\n$(terraform output -json instance_ips | jq -r \'.[]\')" \\
+          "\\n$(terraform output -json instance_ids | jq -r \'.[]\')" \\
           >> aws_hosts'''
       }
     }
