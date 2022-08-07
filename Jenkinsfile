@@ -39,14 +39,14 @@ pipeline {
     stage('Inventory') {
       steps {
         sh '''printf \\
-          "\\n$(terraform output -json instance_ids | jq -r \'.[]\')" \\
+          "\\n$(terraform output -json instance_ips | jq -r \'.[]\')" \\
           >> aws_hosts'''
       }
     }
     stage('Ec2 Wait') {
       steps {
         sh '''aws ec2 wait instance-status-ok \\
-              --instance-ids $(terraform show -json | jq -r \'.values\'.\'root_module\'.\'resources[] | select(.type == "aws_instance").values.id\') \\
+              --instance-ids $(terraform show -json instance_ids | jq -r \'.values\'.\'root_module\'.\'resources[] | select(.type == "aws_instance").values.id\') \\
               --region us-west-1'''
       }
     }
